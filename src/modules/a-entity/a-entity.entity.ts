@@ -7,9 +7,13 @@ export class AEntity extends BaseEntity {
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   description: string;
 
-  @OneToMany(() => BEntity, (b) => b.AEntity, { onDelete: 'CASCADE' })
+  @OneToMany(() => BEntity, (b) => b.AEntity, {
+    onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT',
+    cascade: true,
+  })
   BEntities: BEntity[];
 }

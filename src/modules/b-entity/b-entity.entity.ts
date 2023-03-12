@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from 'src/core/database/base-entity';
 import { AEntity } from 'src/modules/a-entity/a-entity.entity';
 
@@ -7,9 +7,10 @@ export class BEntity extends BaseEntity {
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   description: string;
 
-  @ManyToOne(() => BEntity, { onUpdate: 'RESTRICT' })
-  AEntity: BEntity;
+  @ManyToOne(() => AEntity, { onUpdate: 'RESTRICT' })
+  @JoinColumn()
+  AEntity: AEntity;
 }
