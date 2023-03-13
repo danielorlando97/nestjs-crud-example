@@ -3,8 +3,8 @@ import { Crud, CrudController } from '@nestjsx/crud';
 
 import { AEntity } from './a-entity.entity';
 import { AEntitiesService } from './a-entity.service';
-import { AEntityCreateDto } from './dtos/create.dto';
-import { AEntityUpdateDto } from './dtos/update.dto';
+import { AEntityCreateDto, AEntityCreateSerializer } from './dtos/create.dto';
+import { AEntityUpdateDto, AEntityUpdateSerializer } from './dtos/update.dto';
 @Crud({
   model: {
     type: AEntity,
@@ -13,10 +13,14 @@ import { AEntityUpdateDto } from './dtos/update.dto';
     create: AEntityCreateDto,
     update: AEntityUpdateDto,
   },
+  serialize: {
+    create: AEntityCreateSerializer,
+    createMany: AEntityCreateSerializer,
+    update: AEntityUpdateSerializer,
+  },
   query: {
     join: {
       BEntities: {
-        allow: ['id', 'name'],
         eager: true,
       },
     },
